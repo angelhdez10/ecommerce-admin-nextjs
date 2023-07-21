@@ -13,7 +13,7 @@ const SetupPage = () => {
       onOpen();
     }
   }, [isOpen, onOpen]);
-  return <div className="m-3">Root Page</div>;
+  return null;
 };
 
 export default SetupPage;
