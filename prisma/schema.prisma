@@ -20,6 +20,7 @@ categories Category[] @relation("StoreToCategory")
 sizes Size[] @relation("StoreToSize")
 colors Color[] @relation("StoreToColor")
 products Product[] @relation("StoreToProduct")
+order Order[] @relation("StoreToOrder")
 createdAt DateTime @default(now())
 updatedAt DateTime @updatedAt
 }
@@ -88,6 +89,7 @@ model Product{
   size Size @relation(fields:[sizeId], references: [id])
   colorId String
   color Color @relation(fields:[colorId], references:[id])
+  orderItems OrderItem[]
   images Image[]
   name String
   price Decimal
@@ -108,8 +110,33 @@ model Image {
   url String
   productId String
   product Product @relation(fields: [productId], references:[id], onDelete: Cascade)
-
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
   @@index([productId])
 }
 
+model Order {
+  id String @id @default(uuid())
+  storeId String
+  store Store @relation("StoreToOrder", fields: [storeId], references: [id])
+  orderItems OrderItem[]
+  isPaid Boolean @default(false)
+  phone String @default("")
+  adress String @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  @@index([storeId])
+}
+
+model OrderItem {
+  id String @id @default(uuid())
+  orderId String
+  order Order @relation(fields: [orderId], references: [id])
+  productId String
+  product Product @relation(fields: [productId], references: [id])
+  
+  @@index([orderId])
+  @@index([productId])
+}

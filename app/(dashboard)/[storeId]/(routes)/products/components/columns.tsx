@@ -7,6 +7,7 @@ import { Check } from "lucide-react";
 export type ProductsColumn = {
   id: string;
   name: string;
+  price: string;
   isFeatured: boolean;
   isArchived: boolean;
   category: string;
@@ -24,12 +25,18 @@ export const columns: ColumnDef<ProductsColumn>[] = [
   {
     accessorKey: "isFeatured",
     header: "Featured",
-    cell: ({ row }) => row.original.isFeatured && <Check className="w-4 h-4" />,
+    cell: ({ row }) =>
+      row.original.isFeatured ? <Check className="w-4 h-4" /> : <p>False</p>,
   },
   {
     accessorKey: "isArchived",
     header: "Archived",
-    cell: ({ row }) => row.original.isArchived && <Check className="w-4 h-4" />,
+    cell: ({ row }) =>
+      row.original.isArchived ? <Check className="w-4 h-4" /> : <p>False</p>,
+  },
+  {
+    accessorKey: "price",
+    header: "Price",
   },
   {
     accessorKey: "category",

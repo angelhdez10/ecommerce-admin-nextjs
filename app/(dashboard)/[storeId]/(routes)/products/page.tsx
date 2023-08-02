@@ -32,7 +32,7 @@ const ProductsPage = async ({ params }: { params: { storeId: string } }) => {
     isArchived: item.isArchived,
     category: item.category.name,
     color: item.color.value,
-    size: item.size.value,
+    size: item.size.name,
     price: formatter.format(item.price?.toNumber()),
     createdAt: format(item.createdAt, "MMMM dd, yyyy"),
   }));
