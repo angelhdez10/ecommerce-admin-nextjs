@@ -8,7 +8,7 @@ export async function GET(
     params,
   }: {
     params: { storeId: string; categoryId: string };
-  }
+  },
 ) {
   try {
     if (!params.categoryId) {
@@ -18,6 +18,9 @@ export async function GET(
       where: {
         id: params.categoryId,
         storeId: params.storeId,
+      },
+      include: {
+        billboard: true,
       },
     });
     return NextResponse.json(category);
@@ -33,7 +36,7 @@ export async function PATCH(
     params,
   }: {
     params: { storeId: string; categoryId: string };
-  }
+  },
 ) {
   try {
     const { userId } = auth();
@@ -41,8 +44,7 @@ export async function PATCH(
       return new NextResponse("Unauthenticated", { status: 401 });
     }
     const body = await req.json();
-    const { name } = body;
-
+    const { name, billboardId } = body;
 
     if (!name) {
       return new NextResponse("Name is required", { status: 400 });
@@ -69,7 +71,7 @@ export async function PATCH(
       },
       data: {
         name,
-        storeId: params.storeId,
+        billboardId,
       },
     });
     return NextResponse.json(category);
@@ -85,7 +87,7 @@ export async function DELETE(
     params,
   }: {
     params: { storeId: string; categoryId: string };
-  }
+  },
 ) {
   try {
     const { userId } = auth();

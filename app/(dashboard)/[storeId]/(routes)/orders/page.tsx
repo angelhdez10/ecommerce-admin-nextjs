@@ -30,7 +30,7 @@ const OrderPage = async ({ params }: { params: { storeId: string } }) => {
 
   const formattedOrders: OrderColumn[] = orders?.map((item) => ({
     id: item.id,
-    paid: item.isPaid,
+    isPaid: item.isPaid,
     phone: item.phone,
     adress: item.adress,
     products: item.orderItems

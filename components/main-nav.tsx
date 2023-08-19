@@ -60,7 +60,7 @@ const MainNav = ({
           className={cn(
             "text-sm font-medium transition-colors hover:text-primary",
             route.active
-              ? "text-black dark:test-white"
+              ? "text-black dark:text-white"
               : "text-muted-foreground",
           )}
         >

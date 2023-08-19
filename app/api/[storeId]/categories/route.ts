@@ -8,7 +8,7 @@ export async function POST(
     params,
   }: {
     params: { storeId: string };
-  }
+  },
 ) {
   try {
     const { userId } = auth();
@@ -56,13 +56,13 @@ export async function GET(
     params,
   }: {
     params: { storeId: string };
-  }
+  },
 ) {
   try {
     if (!params.storeId) {
       return new NextResponse("Store id is required", { status: 400 });
     }
-
+    console.log(params.storeId);
     const categories = await prismadb.category.findMany({
       where: {
         storeId: params.storeId,
