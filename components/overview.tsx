@@ -44,7 +44,7 @@ const Overview: React.FC<OverviewProps> = ({ data }) => {
         },
       ],
     });
-  }, []);
+  }, [data]);
   return (
     <div>
       <Bar data={chartData} options={chartOptions} />
