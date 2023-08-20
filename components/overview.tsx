@@ -9,6 +9,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  ChartData,
 } from "chart.js";
 import { useEffect, useState } from "react";
 import { GraphData } from "@/actions/get-graph-revenue";
@@ -27,27 +28,29 @@ interface OverviewProps {
 }
 
 const Overview: React.FC<OverviewProps> = ({ data }) => {
-  const [chartData, setChartData] = useState({
-    labels: [""],
-    datasets: [{}],
+  const [chartDataObj, setChartData] = useState<ChartData<"bar">>({
+    datasets: [],
   });
   const [chartOptions, setChartOptions] = useState({});
 
+  const labels = [...data.map((d) => d?.name)];
+
   useEffect(() => {
     setChartData({
-      labels: data.map((d) => d?.name),
       datasets: [
         {
-          label: "Sales $",
-          data: data?.map((d) => d?.total),
-          backgroundColor: "rgb(53, 162, 235)",
+          data: [...data?.map((d) => d.total)],
+          backgroundColor: "#353535",
         },
       ],
     });
   }, [data]);
   return (
     <div>
-      <Bar data={chartData} options={chartOptions} />
+      <Bar
+        data={{ ...chartDataObj, labels: [...labels] }}
+        options={chartOptions}
+      />
     </div>
   );
 };
