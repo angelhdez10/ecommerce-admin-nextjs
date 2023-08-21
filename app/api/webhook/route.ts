@@ -4,6 +4,12 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 export async function POST(req: Request) {
   const body = await req.text();
   const signature = headers().get("Stripe-Signature") as string;
@@ -13,7 +19,7 @@ export async function POST(req: Request) {
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.WEBHOOK_SECRET!,
+      process.env.WEBHOOK_SECRET!
     );
   } catch (e: any) {
     return new Response(`Webhook error: ${e.message}`, { status: 400 });
@@ -50,7 +56,7 @@ export async function POST(req: Request) {
       },
     });
     const productsIds = order?.orderItems?.map(
-      (orderItem) => orderItem?.productId,
+      (orderItem) => orderItem?.productId
     );
 
     await prismadb.product.updateMany({

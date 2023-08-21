@@ -84,7 +84,7 @@ model Product{
   storeId String
   store Store @relation("StoreToProduct", fields:[storeId], references:[id])
   categoryId String
-  category Category @relation("CategoryToProduct", references:[id], fields:[categoryId])
+  category Category @relation("CategoryToProduct", fields:[categoryId], references:[id])
   sizeId String
   size Size @relation(fields:[sizeId], references: [id])
   colorId String
